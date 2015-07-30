@@ -2,18 +2,11 @@
 Normal Filed from Inverse Toon Shading Mechanism.
 ====
 
-Sample implementations of Shape-From-Shading techniques for NPR.
-
-* **Lumo: Illumination for Cel Animation** [Johnston et al. 2002]
-    - Normal estimation from silhouettes.
-* **Image-Based Material Editing** [Kahn et al. 2006]
-    - The original paper focuses on material editing. In this program, shape recovery part is implemented.
+Sample implementation of Inverse Toon Shading [Xu et al. 2015].
 
 
 ## Result
 *Status*: Under construction.
-<!-- ### Lit-Sphere
-![Lit-Sphere](LitSphere/results/LitSphere.png) -->
 
 ## Installation
 
@@ -41,45 +34,16 @@ You can use **pip** command for installing main modules.
 Please run the following command from the shell.
 
 ``` bash
-  > pip install git+https://github.com/tody411/NPR-SFS.git
+  > pip install git+https://github.com/tody411/InverseToon.git
 ```
 
 ## Usage
-### Package Structure
-* npr_sfs: Main package.
-    - datasets: Utility module for small datasets.
-    - methods: SFS main modules.
+*Status*: Under construction.
 
-### CLI
-Each method implementation in npr_sfs/methods provides **CLI** (provided by **docopt**) to run the program.
-The following **CLI** examples can be tested from npr_sfs/methods directory.
+## Future tasks
 
-**No args**: Simple demo with installed datasets.
-``` bash
-  > python lumo.py
-```
-
-**input**: You can specify an input image file as the command args.
-``` bash
-  > python lumo.py ../datasets/Blob1.png
-```
-
-**-o --output**: You can save estimated normal image (The output will be saved in the same directory as the input).
-
-``` bash
-  > python lumo.py -o
-```
-
-**-q --quiet**: Quiet mode (GUIs are not shown).
-``` bash
-  > python lumo.py -q -o
-```
-
-## Future work
-
+* [ ] Complete implementation.
 * [ ] Update result section.
-* [ ] Implement more methods.
-* [ ] Comparison module for summarizing the results.
 * [ ] Provide API document.
 
 ## License
