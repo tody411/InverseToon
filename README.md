@@ -30,12 +30,14 @@ This program also uses **docopt** for CLI.
 **docopt** will be installed automatically through the following **pip** command for main modules.
 
 ### Install main modules
-You can use **pip** command for installing main modules.
+*Status*: Under construction.
+
+<!-- You can use **pip** command for installing main modules.
 Please run the following command from the shell.
 
 ``` bash
   > pip install git+https://github.com/tody411/InverseToon.git
-```
+``` -->
 
 ## Usage
 *Status*: Under construction.
