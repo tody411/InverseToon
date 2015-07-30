@@ -13,6 +13,8 @@ logger = getLogger(__name__)
 
 
 ## Base data definition.
+#
+#  Provide Json IO (writeJson, loadJson) by implementing _dataDict and _setDataDict.
 class Data(object):
     ## Constructor
     def __init__(self):

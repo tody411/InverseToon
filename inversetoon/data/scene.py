@@ -6,9 +6,6 @@
 #  @author      tody
 #  @date        2015/07/30
 
-import json
-import numpy as np
-
 from inversetoon.data.data import Data
 from inversetoon.data.isophote_mesh import IsophoteMesh
 
@@ -19,7 +16,10 @@ logger = getLogger(__name__)
 
 
 ## Scene data definition.
-#  Constructed by 1 silhoutte curve and n isophote curves.
+#
+#  Attribute:
+#   isophoteMesh
+#   normalImage
 class Scene(Data):
     ## Constructor
     #  @param  isophote_mesh  IsophoteMesh data.

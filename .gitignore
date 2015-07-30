@@ -53,3 +53,6 @@ Temporary Items
 # Sublime
 *.sublime-project
 *.sublime-workspace
+
+# Doxygen directory
+doxygen
