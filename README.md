@@ -1,9 +1,21 @@
 
-Normal Filed from Inverse Toon Shading Mechanism.
+Inverse Toon Shading (Python)
 ====
 
-Sample implementation of Inverse Toon Shading [Xu et al. 2015].
+Simple Python demos of Inverse Toon Shading [Xu et al. 2015].
 
+Their main idea is using **isophote**, a contour of equal luminance.
+I would like to test each step of normal estimation process based on the **isophote** concept.
+
+1. Well-defined normals
+    - Intersecting isophotes
+2. Isophote normals
+    - 2D arc-length interpolation
+    - Integrating 2D tangent direction
+    - 3D projection
+3. Full normal field
+    - Diffuse isophote normals
+    - Project back to isophote constraint
 
 ## Result
 *Status*: Under construction.
