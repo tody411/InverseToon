@@ -15,10 +15,13 @@ from inversetoon.data.segment import IsophoteSegment
 
 
 ## Curve data definition.
+#
+#  Attributes:
+#  * cvs: list of control vertices (n x 2 numpy.array).
+#  * segments_cvIDs: list of segment_cvIDs.
+#      - segment_cvIDs: list of control vertex IDs in the segment.
 class Curve(Data):
     ## Constructor
-    #  @param  cvs  control vertices. [(p1x, p1y), ..., (pnx, pny)].
-    #  @param  segments [segment1, ..., segmentn]. segment = [(cvID1), ..., (cvIDn)].
     def __init__(self, cvs=[], segments_cvIDs=[]):
         self._cvs = np.array(cvs)
         self._segments_cvIDs = segments_cvIDs
@@ -32,11 +35,11 @@ class Curve(Data):
     def setCVs(self, cvs):
         self._cvs = cvs
 
-    def segments(self):
+    def segmentsCVIDs(self):
         return self._segments_cvIDs
 
-    def setSegments(self, segments):
-        self._segments_cvIDs = segments
+    def setSegmentsCVIDs(self, segments_cvIDs):
+        self._segments_cvIDs = segments_cvIDs
 
     def setCurve(self, curve):
         self._cvs = curve._cvs
@@ -45,9 +48,9 @@ class Curve(Data):
     def curvePoints(self):
         curves = []
 
-        for segment in self._segments_cvIDs:
+        for segment_cvID in self._segments_cvIDs:
             curve = []
-            for cvID in segment:
+            for cvID in segment_cvID:
                 curve.append(self._cvs[cvID])
 
             curve = np.array(curve)
@@ -90,12 +93,12 @@ class Curve(Data):
 
         si = 0
         for p_segment in contour.segments():
-            segment = []
+            segment_cvIDs = []
             for p in p_segment:
                 cvs.append(p)
-                segment.append(si)
+                segment_cvIDs.append(si)
                 si += 1
-            self._segments_cvIDs.append(segment)
+            self._segments_cvIDs.append(segment_cvIDs)
 
         self._cvs = np.array(cvs)
         self.setClosing(contour.closing())
@@ -107,10 +110,7 @@ class Curve(Data):
         contour_segments = []
 
         for segment_cvIDs in segments_cvIDs:
-            coutour_segment = []
-            for cvID in segment_cvIDs:
-                p = cvs[cvID]
-                coutour_segment.append(p)
+            coutour_segment = cvs[segment_cvIDs]
             contour_segments.append(np.array(coutour_segment))
 
         return Contour(contour_segments, self.isClosing())
@@ -132,21 +132,25 @@ class Curve(Data):
 
     ## dictionary data for writeJson method.
     def _dataDict(self):
-        data = {"cvs": self._cvs.tolist(), "segmentsCVIDs": self._segments_cvIDs}
+        data = {"cvs": self._cvs.tolist(), "segments": self._segments_cvIDs}
         return data
 
     ## set dictionary data for loadJson method.
     def _setDataDict(self, data):
         self._cvs = np.array(data["cvs"])
-        self._segments_cvIDs = data["segmentsCVIDs"]
+        self._segments_cvIDs = data["segments"]
 
 
 ## Curve data with normals.
+#
+#  Attributes:
+#  * cvs
+#  * segments_cvIDs
+#  * normals: n x 3 normal data.
 class NormalCurve(Curve):
     ## Constructor
-    #  @param  normals  Additional normal data with the same size of cvs.
-    def __init__(self, cvs=[], segments=[], normals=[]):
-        super(NormalCurve, self).__init__(cvs, segments)
+    def __init__(self, cvs=[], segments_cvIDs=[], normals=[]):
+        super(NormalCurve, self).__init__(cvs, segments_cvIDs)
         self._normals = np.array(normals)
 
     def normals(self):
@@ -189,12 +193,17 @@ class NormalCurve(Curve):
         self._normals = np.array(data["normals"])
 
 
-## Isophote curve data.
+## Isophote curve data definition.
+#
+#  Attributes:
+#  * cvs
+#  * segments_cvIDs
+#  * normals
+#  * L: light direction.
+#  * iso_value: luminance value for the isophote.
+#  * silhouette_cvIDs: control vertex IDs of silhoutte vertices.
 class IsophoteCurve(NormalCurve):
     ## Constructor
-    #  @param  L  Lgiht direction for the isophote.
-    #  @param  iso_value  Illumination value for the isophote.
-    #  @param  silhouette_cvIDs  Control vertex IDs of sihoutte vertices.
     def __init__(self, cvs=[], segments=[], normals=[], L=np.array([0, 0, 1]),
                  iso_value=0, silhouette_cvIDs=[]):
         super(IsophoteCurve, self).__init__(cvs, segments, normals)
@@ -222,7 +231,7 @@ class IsophoteCurve(NormalCurve):
 
     def setSilhouetteMask(self, S_8U):
         cvs = self.CVs()
-        segments = self.segments()
+        segments = self.segmentsCVIDs()
 
         silhouetteCVIDs = []
 

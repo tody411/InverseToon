@@ -8,19 +8,22 @@
 
 
 ## Contour data definition.
+#
+#  Attributes:
+#  * segments: list of segment data.
+#      - segment: list of points (n x 2 numpy.array).
+#  * closing: if True, [p1, ..., pn] -> [p1, ..., pn, p1].
 class Contour:
     ## Constructor
-    #  @param  segments  [segment1, ..., segmentn]. segment = [(p1x, p1y), ..., (pnx, pny)].
-    #  @param  closing   closing, [p1, ..., pn] -> [p1, ..., pn, p1].
     def __init__(self, segments=[], closing=False):
-        self._segments_cvIDs = segments
+        self._segments = segments
         self._closing = closing
 
     def setSegments(self, segments):
-        self._segments_cvIDs = segments
+        self._segments = segments
 
     def segments(self):
-        return self._segments_cvIDs
+        return self._segments
 
     def setClosing(self, closing):
         self._closing = closing

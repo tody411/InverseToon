@@ -18,12 +18,11 @@ logger = getLogger(__name__)
 ## Scene data definition.
 #
 #  Attribute:
-#   isophoteMesh
-#   normalImage
+#  * isophote_mesh: IsophoteMesh data.
+#  * normal_image_file: normal image file path.
+#  * normal_image: normal image of normal_image_file.
 class Scene(Data):
     ## Constructor
-    #  @param  isophote_mesh  IsophoteMesh data.
-    #  @param  normal_image_file  Normal image file path.
     def __init__(self, isophote_mesh=IsophoteMesh(), normal_image_file=None):
         self._isophote_mesh = isophote_mesh
         self._normal_image_file = normal_image_file

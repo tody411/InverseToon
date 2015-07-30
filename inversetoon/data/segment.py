@@ -9,14 +9,13 @@
 import numpy as np
 from inversetoon.np.norm import normVectors, normalizeVectors
 
+from inversetoon.core.transform import coordinateFrame
+
 from inversetoon.util.logger import getLogger
 logger = getLogger(__name__)
 
-from inversetoon.core.transform import coordinateFrame
-
 
 def computeArcLengthParameters(points):
-
     diff_points = points[1:, :] - points[:-1, :]
     dist_points = normVectors(diff_points)
 
@@ -74,6 +73,16 @@ def computeTangents(points):
 
 
 ## Isophote segment data definition.
+#
+#  Attributes:
+#  * points: n x 2 numpy array.
+#  * normals: n x 2 numpy array.
+#  * arc_lengh_parameters: n numpy vector.
+#  * curvatures: n numpy vector.
+#  * tangents: n x 2 numpy array.
+#  * L: light direction for the isophote.
+#  * Lxyz: light coordinate frame.
+#  * cvIDs: Control vertex IDs.
 class IsophoteSegment:
     ## Constructor
     #  @param  points  2 x n numpy array.

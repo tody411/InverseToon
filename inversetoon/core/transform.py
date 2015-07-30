@@ -28,6 +28,7 @@ def rotationFromVectors(v_from, v_to):
     return a, cos_t, sin_t
 
 
+## Obtain a coordinate frame for the target vector.
 def coordinateFrame(v):
     x_axis = np.array([1, 0, 0])
     y_axis = np.array([0, 1, 0])
