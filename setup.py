@@ -2,16 +2,21 @@
 # -*- coding: utf-8 -*-
 ## @package setup
 #
-#  setup for inversetoon.
+#  setup utility package.
 #  @author      tody
-#  @date        2015/07/17
+#  @date        2015/07/29
 
 from setuptools import setup, find_packages
+from npr_sfs import __author__, __version__, __license__
 
 setup(
-        name             = 'inversetoon',
-        version          = 0.1,
-        description      = 'Normal Filed through Inverse Toon Shading',
-        url              = 'https://github.com/tody411/InverseToon.git',
-        packages         = find_packages(),
+        name = 'inversetoon',
+        version = __version__,
+        description = 'Sample implementation of Inverse Toon Shading [Xu et al. 2015]',
+        license = __license__,
+        author = __author__,
+        url = 'https://github.com/tody411/InverseToon.git',
+        packages = find_packages(),
+        install_requires = ['docopt'],
         )
+
