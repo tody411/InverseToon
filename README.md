@@ -1,5 +1,5 @@
 
-Inverse Toon Shading (Python)
+Inverse Toon Shading (Python) {#mainpage}
 ====
 
 Simple Python demos of Inverse Toon Shading [Xu et al. 2015].
