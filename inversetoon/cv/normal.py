@@ -5,14 +5,11 @@
 #  @author      tody
 #  @date        2015/07/30
 
-
-
 import numpy as np
 import cv2
 
 from inversetoon.cv.image import rgb, to32F, to8U, setAlpha, alpha
 from inversetoon.np.norm import normalizeVectors
-from inversetoon.util.timer import timing_func
 
 
 ## RGBA to normal.
@@ -50,3 +47,22 @@ def normalizeImage(N_32F):
 
     N_32F_normalized = N_flat_normalized.reshape(N_32F.shape)
     return N_32F_normalized
+
+
+## Normal sphere image.
+def normalSphere(h=256, w=256):
+    N_32F = np.zeros((h, w, 3))
+    A_32F = np.zeros((h, w))
+
+    for y in xrange(h):
+        N_32F[y, :, 0] = np.linspace(-1.0, 1.0, w)
+
+    for x in xrange(w):
+        N_32F[:, x, 1] = np.linspace(1.0, -1.0, w)
+
+    r_xy = N_32F[:, :, 0] ** 2 + N_32F[:, :, 1] ** 2
+    N_32F[r_xy < 1.0, 2] = np.sqrt(1.0 - r_xy[r_xy < 1.0])
+    A_32F[r_xy < 1.0] = 1.0 - r_xy[r_xy < 1.0] ** 100
+
+    return N_32F, A_32F
+

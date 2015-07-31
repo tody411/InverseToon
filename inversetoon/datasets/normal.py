@@ -12,11 +12,12 @@ from inversetoon.io.image import loadNormal, saveNormal
 from inversetoon.util.logger import getLogger
 logger = getLogger(__name__)
 
-data_dir = os.path.abspath(__file__).replace(".py", "")
+data_dir = os.path.join(os.path.dirname(__file__), "normal")
 
 
 ## Data names.
 def dataNames():
+    logger.debug(data_dir)
     images = os.listdir(data_dir)
     data_names = []
 
@@ -37,6 +38,7 @@ def loadData(data_name):
     img_file = dataFile(data_name)
     N_32F, A_8U = loadNormal(img_file)
     return N_32F, A_8U
+
 
 ## Save data for the data name.
 def saveData(data_name, N_32F, A_8U):

@@ -68,10 +68,10 @@ class Curve(Data):
 
         self.resampleSegments(segments_resampled)
 
-    def resampleSegments(self, segments):
+    def resampleSegments(self, segments_cvIDs):
         cvIDs_resampled = set()
-        for segment in segments:
-            for cvID in segment:
+        for segment_cvID in segments_cvIDs:
+            for cvID in segment_cvID:
                 cvIDs_resampled.add(cvID)
 
         cvIDs_resampled = list(cvIDs_resampled)
@@ -82,10 +82,10 @@ class Curve(Data):
 
         self._cvs = self._cvs[cvIDs_resampled]
 
-        for segment in segments:
-            for i in range(len(segment)):
-                segment[i] = cvIDs_map[segment[i]]
-        self._segments_cvIDs = segments
+        for segment_cvID in segments_cvIDs:
+            for i in range(len(segment_cvID)):
+                segment_cvID[i] = cvIDs_map[segment_cvID[i]]
+        self._segments_cvIDs = segments_cvIDs
 
     def setContour(self, contour):
         cvs = []
