@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 ## @package inversetoon.core.transform
 #
-#  Transform utility package.
+#  Transform functions.
 #  @author      tody
 #  @date        2015/07/30
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ## @package inversetoon.cv.normal
 #
-#  Normal image  utility package.
+#  Normal image functions.
 #  @author      tody
 #  @date        2015/07/30
 

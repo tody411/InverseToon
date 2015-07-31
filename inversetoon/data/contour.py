@@ -2,13 +2,12 @@
 # -*- coding: utf-8 -*-
 ## @package inversetoon.data.contour
 #
-#  Contour data definition.
+#  Contour data class.
 #  @author      tody
 #  @date        2015/07/30
 
 
-## Contour data definition.
-#
+## Contour data class.
 #  Attributes:
 #  * segments: list of segment data.
 #      - segment: list of points (n x 2 numpy.array).

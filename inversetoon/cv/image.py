@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ## @package inversetoon.cv.image
 #
-#  OpenCV image utility package.
+#  OpenCV image functions.
 #  @author      tody
 #  @date        2015/07/30
 
