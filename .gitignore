@@ -55,4 +55,4 @@ Temporary Items
 *.sublime-workspace
 
 # Doxygen directory
-doxygen
+doxygen/api_doc
