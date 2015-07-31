@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.7"/>
-<title>InverseToon: Main Page</title>
+<title>InverseToon: setup Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -44,8 +44,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </script>
   <div id="navrow1" class="tabs">
     <ul class="tablist">
-      <li class="current"><a href="index.html"><span>Main&#160;Page</span></a></li>
-      <li><a href="namespaces.html"><span>Packages</span></a></li>
+      <li><a href="index.html"><span>Main&#160;Page</span></a></li>
+      <li class="current"><a href="namespaces.html"><span>Packages</span></a></li>
       <li><a href="annotated.html"><span>Classes</span></a></li>
       <li>
         <div id="MSearchBox" class="MSearchBoxInactive">
@@ -65,6 +65,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
       </li>
     </ul>
   </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="namespaces.html"><span>Packages</span></a></li>
+      <li><a href="namespacemembers.html"><span>Package&#160;Functions</span></a></li>
+    </ul>
+  </div>
 </div><!-- top -->
 <div id="side-nav" class="ui-resizable side-nav-resizable">
   <div id="nav-tree">
@@ -77,7 +83,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('index.html','');});
+$(document).ready(function(){initNavTree('namespacesetup.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -95,61 +101,53 @@ $(document).ready(function(){initNavTree('index.html','');});
 </div>
 
 <div class="header">
+  <div class="summary">
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
-<div class="title">InverseToon Documentation</div>  </div>
+<div class="title">setup Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>Simple Python demos of Inverse Toon Shading [Xu et al. 2015].</p>
-<p>Their main idea is using <b>isophote</b>, a contour of equal luminance. I would like to test each step of normal estimation process based on the <b>isophote</b> concept.</p>
-<ol type="1">
-<li>Well-defined normals<ul>
-<li>Intersecting isophotes</li>
-</ul>
-</li>
-<li>Isophote normals<ul>
-<li>2D arc-length interpolation</li>
-<li>Integrating 2D tangent direction</li>
-<li>3D projection</li>
-</ul>
-</li>
-<li>Full normal field<ul>
-<li>Diffuse isophote normals</li>
-<li>Project back to isophote constraint</li>
-</ul>
-</li>
-</ol>
-<h2>Result</h2>
-<p><em>Status</em>: Under construction.</p>
-<h2>Installation</h2>
-<p><em>Note</em>: This program was only tested on <b>Windows</b> with <b>Python2.7</b>. <b>Linux</b> and <b>Mac OS</b> are not officially supported, but the following instructions might be helpful for installing on those environments.</p>
-<h3>Dependencies</h3>
-<p>Please install the following required python modules.</p>
-<ul>
-<li><b>NumPy</b></li>
-<li><b>SciPy</b></li>
-<li><b>matplotlib</b></li>
-<li><b>OpenCV</b></li>
-<li><b>PyAMG</b></li>
-</ul>
-<p>As these modules are heavily dependent on NumPy modules, please install appropriate packages for your development environment (Python versions, 32-bit or 64bit). For 64-bit Windows, you can download the binaries from <a href="http://www.lfd.uci.edu/~gohlke/pythonlibs/">**Unofficial Windows Binaries for Python Extension Packages**</a>.</p>
-<p>This program also uses <b>docopt</b> for CLI. <b>docopt</b> will be installed automatically through the following <b>pip</b> command for main modules.</p>
-<h3>Install main modules</h3>
-<p><em>Status</em>: Under construction.</p>
-<h2>Usage</h2>
-<p><em>Status</em>: Under construction.</p>
-<h2>Future tasks</h2>
-<ul>
-<li>[ ] Complete implementation.</li>
-<li>[ ] Update result section.</li>
-<li>[ ] Provide API document.</li>
-</ul>
-<h2>License</h2>
-<p>The MIT License 2015 (c) tody </p>
+
+<p>setup utility package.  
+<a href="#details">More...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a61de3710bf6c9d78c0afa352263f8b09"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a61de3710bf6c9d78c0afa352263f8b09"></a>
+string&#160;</td><td class="memItemRight" valign="bottom"><b>name</b> = 'inversetoon'</td></tr>
+<tr class="separator:a61de3710bf6c9d78c0afa352263f8b09"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2aa722b36a933088812b50ea79b97a5c"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2aa722b36a933088812b50ea79b97a5c"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>version</b> = __version__,</td></tr>
+<tr class="separator:a2aa722b36a933088812b50ea79b97a5c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade8aa54df2083113a10326ea2fe7934b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ade8aa54df2083113a10326ea2fe7934b"></a>
+string&#160;</td><td class="memItemRight" valign="bottom"><b>description</b> = 'Sample implementation of Inverse Toon Shading [Xu et al. 2015]'</td></tr>
+<tr class="separator:ade8aa54df2083113a10326ea2fe7934b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8ed6f50a28bd6a8794f8e1153baa6de9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8ed6f50a28bd6a8794f8e1153baa6de9"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>license</b> = __license__,</td></tr>
+<tr class="separator:a8ed6f50a28bd6a8794f8e1153baa6de9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a57a4772d418a06835249cbade0d86a"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3a57a4772d418a06835249cbade0d86a"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>author</b> = __author__,</td></tr>
+<tr class="separator:a3a57a4772d418a06835249cbade0d86a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3376e8b9735800b5b9e455914cee908d"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a3376e8b9735800b5b9e455914cee908d"></a>
+string&#160;</td><td class="memItemRight" valign="bottom"><b>url</b> = 'https://github.com/tody411/InverseToon.git'</td></tr>
+<tr class="separator:a3376e8b9735800b5b9e455914cee908d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac31bc6390743c46ed466881a9d62eb2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aac31bc6390743c46ed466881a9d62eb2"></a>
+tuple&#160;</td><td class="memItemRight" valign="bottom"><b>packages</b> = find_packages()</td></tr>
+<tr class="separator:aac31bc6390743c46ed466881a9d62eb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7cd8314075060c603cd2622ada2c2fbe"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7cd8314075060c603cd2622ada2c2fbe"></a>
+list&#160;</td><td class="memItemRight" valign="bottom"><b>install_requires</b> = ['docopt']</td></tr>
+<tr class="separator:a7cd8314075060c603cd2622ada2c2fbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>setup utility package. </p>
+<dl class="section author"><dt>Author</dt><dd>tody </dd></dl>
+<dl class="section date"><dt>Date</dt><dd>2015/07/29 </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a class="el" href="namespacesetup.html">setup</a></li>
     <li class="footer">Generated on Fri Jul 31 2015 15:53:06 for InverseToon by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.7 </li>
