@@ -18,3 +18,10 @@ def normalDataSetBatch(func):
     for data_name in normal.dataNames():
         with Timer(data_name, logger) as t:
             func(data_name)
+
+
+def isophoteDataSetBatch(func):
+    logger.info("Isophote Dataset Batch: %s" % func.__name__)
+    for data_name in isophote.dataNames():
+        with Timer(data_name, logger) as t:
+            func(data_name)

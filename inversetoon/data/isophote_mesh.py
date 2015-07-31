@@ -11,7 +11,6 @@ from inversetoon.data.data import Data
 from inversetoon.data.curve import NormalCurve, IsophoteCurve
 
 
-
 ## Isophote mesh class.
 #
 #  Attributes:
