@@ -54,11 +54,21 @@ Please run the following command from the shell.
 ## Usage
 *Status*: Under construction.
 
+## API Document
+
+API document will be managed by [doxygen](http://www.stack.nl/~dimitri/doxygen/) framework.
+Online version is provided in the following link:
+* [**inversetoon API Document**](http://tody411.github.io/InverseToon/index.html) (html)
+
+For a local copy, please use the following doxygen command from *doxygen* directory.
+``` bash
+  > doxygen doxygen_config
+```
+
 ## Future tasks
 
 * [ ] Complete implementation.
 * [ ] Update result section.
-* [ ] Provide API document.
 
 ## License
 
