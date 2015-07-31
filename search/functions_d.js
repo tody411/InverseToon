@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['writejson',['writeJson',['../classinversetoon_1_1data_1_1data_1_1_data.html#ae0cf61393b5b31d22cc5a9c58382d19e',1,'inversetoon.data.data.Data.writeJson()'],['../classinversetoon_1_1data_1_1isophote__mesh_1_1_isophote_mesh.html#a7f9a44e59141cc42886b75c18fbc2d72',1,'inversetoon.data.isophote_mesh.IsophoteMesh.writeJson()']]]
+  ['to32f',['to32F',['../namespaceinversetoon_1_1cv_1_1image.html#a2b2656790c57d1df4a723bcc9a95d651',1,'inversetoon::cv::image']]],
+  ['to8u',['to8U',['../namespaceinversetoon_1_1cv_1_1image.html#a06e08825a5afd03992209606db202179',1,'inversetoon::cv::image']]]
 ];

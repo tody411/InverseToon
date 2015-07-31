@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['gray2rgb',['gray2rgb',['../namespaceinversetoon_1_1cv_1_1image.html#a95b38e236ceeb31393256fbefa4dc3b9',1,'inversetoon::cv::image']]],
-  ['gray2rgba',['gray2rgba',['../namespaceinversetoon_1_1cv_1_1image.html#a8ab5431a9eada8267ff149c6acf40acd',1,'inversetoon::cv::image']]]
+  ['datafile',['dataFile',['../namespaceinversetoon_1_1datasets_1_1normal.html#a0e971589b0287a363b878fcafa1ccc2d',1,'inversetoon::datasets::normal']]],
+  ['datanames',['dataNames',['../namespaceinversetoon_1_1datasets_1_1normal.html#a467d8d0ea68e7a3867326a70ca688419',1,'inversetoon::datasets::normal']]]
 ];
