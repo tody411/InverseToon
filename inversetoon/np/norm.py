@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 ## @package inversetoon.np.norm
 #
-#  Numpy norm utility package.
+#  Norm functions.
 #  @author      tody
 #  @date        2015/07/18
 
@@ -42,8 +42,8 @@ def normVectors(x):
 
 
 ## L2 norm of vectors (n x m matrix).
-#  n x 1 vector: np.square.
-#  n x m vectors: np.einsum.
+#  n x 1 vector: call np.square.
+#  n x m vectors: call np.einsum.
 def l2NormVectors(x):
     if isVector(x):
         return np.square(x)

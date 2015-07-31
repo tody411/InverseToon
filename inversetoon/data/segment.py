@@ -15,6 +15,7 @@ from inversetoon.util.logger import getLogger
 logger = getLogger(__name__)
 
 
+## Compute arc-length parameters from points.
 def computeArcLengthParameters(points):
     diff_points = points[1:, :] - points[:-1, :]
     dist_points = normVectors(diff_points)
@@ -33,6 +34,7 @@ def computeArcLengthParameters(points):
     return parameters
 
 
+## Comute curvatures from points.
 def computeCurvatures(points):
     t1 = np.array(points, dtype=np.float)
     t2 = np.array(points, dtype=np.float)
@@ -54,6 +56,7 @@ def computeCurvatures(points):
     return k
 
 
+## Compute tangent vectors from points.
 def computeTangents(points):
     t1 = np.array(points, dtype=np.float)
     t2 = np.array(points, dtype=np.float)
@@ -72,7 +75,7 @@ def computeTangents(points):
     return t
 
 
-## Isophote segment data definition.
+## Isophote segment data class.
 #
 #  Attributes:
 #  * points: n x 2 numpy array.

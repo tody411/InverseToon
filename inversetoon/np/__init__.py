@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-## @package inversetoon.np.__init__
+## @package inversetoon.np
 #
-#  Utility packages for numpy.
+#  Modules for NumPy utility.
 #  @author      tody
 #  @date        2015/07/22

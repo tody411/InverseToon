@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 ## @package inversetoon.data.scene
 #
-#  Scene data definition.
+#  Scene data class.
 #  @author      tody
 #  @date        2015/07/30
 
@@ -15,7 +15,7 @@ from inversetoon.util.logger import getLogger
 logger = getLogger(__name__)
 
 
-## Scene data definition.
+## Scene data class.
 #
 #  Attribute:
 #  * isophote_mesh: IsophoteMesh data.

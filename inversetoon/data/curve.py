@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 ## @package inversetoon.data.curve
 #
-#  Curve data definitions.
+#  Curve data classes.
 #  @author      tody
 #  @date        2015/07/17
 
@@ -14,7 +14,7 @@ from inversetoon.data.data import Data
 from inversetoon.data.segment import IsophoteSegment
 
 
-## Curve data definition.
+## Curve data class.
 #
 #  Attributes:
 #  * cvs: list of control vertices (n x 2 numpy.array).
@@ -193,7 +193,7 @@ class NormalCurve(Curve):
         self._normals = np.array(data["normals"])
 
 
-## Isophote curve data definition.
+## Isophote curve data class.
 #
 #  Attributes:
 #  * cvs

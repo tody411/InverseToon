@@ -1,22 +1,23 @@
-
 # -*- coding: utf-8 -*-
 ## @package inversetoon.data.isophote_mesh
 #
-#  Isophote mesh definition.
+#  Isophote mesh class.
 #  @author      tody
 #  @date        2015/07/17
 
 import json
 
-from curve import NormalCurve, IsophoteCurve
+from inversetoon.data.data import Data
+from inversetoon.data.curve import NormalCurve, IsophoteCurve
 
 
-## Isophote mesh definition.
+
+## Isophote mesh class.
 #
 #  Attributes:
 #  * silhouette_curve: NormalCurve data for silhouette.
 #  * isophote_curves: list of IsophoteCurve data for isophotes.
-class IsophoteMesh:
+class IsophoteMesh(Data):
     ## Constructor
     def __init__(self, silhouette_curve=NormalCurve(), isophote_curves=[]):
         self._silhouette_curve = silhouette_curve
@@ -37,15 +38,6 @@ class IsophoteMesh:
     #################
     # Data IO
     #################
-
-    def writeJson(self):
-        data = self._dataDict()
-        return json.dumps(data, sort_keys=True, indent=4)
-
-    def loadJson(self, json_data):
-        data = json.loads(json_data)
-        self._setDataDict(data)
-
     def _dataDict(self):
         isophoteCurvesDicts = [isophoteCurve._dataDict()
                                for isophoteCurve in self._isophote_curves]
