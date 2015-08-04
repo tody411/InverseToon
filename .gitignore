@@ -56,4 +56,4 @@ Temporary Items
 
 # Doxygen directory
 # doxygen/api_doc
-# doxygen/*.bat
+doxygen/*.bat
