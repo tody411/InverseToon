@@ -45,49 +45,6 @@ class Curve(Data):
         self._cvs = curve._cvs
         self._segments_cvIDs = curve._segments_cvIDs
 
-    def curvePoints(self):
-        curves = []
-
-        for segment_cvID in self._segments_cvIDs:
-            curve = []
-            for cvID in segment_cvID:
-                curve.append(self._cvs[cvID])
-
-            curve = np.array(curve)
-            curves.append(curve)
-        return curves
-
-    def resampleCurve(self, span=10):
-        segments_resampled = []
-
-        for segment in self._segments_cvIDs:
-            segment_resampled = segment[::span]
-            if segment_resampled[-1] != segment[-1]:
-                segment_resampled.append(segment[-1])
-
-            segments_resampled.append(segment_resampled)
-
-        self.resampleSegments(segments_resampled)
-
-    def resampleSegments(self, segments_cvIDs):
-        cvIDs_resampled = set()
-        for segment_cvID in segments_cvIDs:
-            for cvID in segment_cvID:
-                cvIDs_resampled.add(cvID)
-
-        cvIDs_resampled = list(cvIDs_resampled)
-        cvIDs_resampled.sort()
-        cvIDs_map = {}
-        for i, cvID in enumerate(cvIDs_resampled):
-            cvIDs_map[cvID] = i
-
-        self._cvs = self._cvs[cvIDs_resampled]
-
-        for segment_cvID in segments_cvIDs:
-            for i in range(len(segment_cvID)):
-                segment_cvID[i] = cvIDs_map[segment_cvID[i]]
-        self._segments_cvIDs = segments_cvIDs
-
     def setContour(self, contour):
         cvs = []
         self._segments_cvIDs = []
@@ -253,6 +210,7 @@ class IsophoteCurve(NormalCurve):
         for cv_ids in self._segments_cvIDs:
             segment = IsophoteSegment(cvs[cv_ids], cv_ids)
             segment.setLightDir(self._L)
+            segment.setIsoValue(self._iso_value)
             segment.setNormals(normals[cv_ids])
             segments.append(segment)
 

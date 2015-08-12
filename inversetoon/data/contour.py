@@ -77,8 +77,8 @@ class Contour:
 
                 segment_clipped.append(p)
 
-        if len(segment_clipped) > 0:
-            segments_clipped.append(np.array(segment_clipped))
+            if len(segment_clipped) > 0:
+                segments_clipped.append(np.array(segment_clipped))
 
         p = self._segments[0][0]
         if M_8U[p[1], p[0]] == 255:

@@ -12,6 +12,7 @@ from inversetoon.np.norm import normVectors, normalizeVectors
 from inversetoon.core.transform import coordinateFrame
 
 from inversetoon.util.logger import getLogger
+from inversetoon.core.normal_cone import NormalCone
 logger = getLogger(__name__)
 
 
@@ -27,8 +28,10 @@ def computeArcLengthParameters(points):
     arc_length = 0
     for pi in range(len(dist_points)):
         arc_length += dist_points[pi]
-        parameters[pi + 1] = arc_length / dist_sum
+        parameters[pi + 1] = arc_length
 
+    if dist_sum > 0.00001:
+        parameters *= (1.0 / dist_sum)
     logger.debug("Total arc length: %s" % dist_sum)
 
     return parameters
@@ -97,13 +100,20 @@ class IsophoteSegment:
         self._normals = None
         self._L = np.array([0.0, 0.0, 1.0])
         self._Lxyz = coordinateFrame(self._L)
-        self._cone_angles = None
+        self._iso_value = 0.0
+        self._cone_angle_changes = None
 
     def setLightDir(self, L):
         self._L = L
 
     def lightDir(self):
         return self._L
+
+    def setIsoValue(self, iso_value):
+        self._iso_value = iso_value
+
+    def isoValue(self):
+        return self._iso_value
 
     def setPoints(self, points):
         self._points = points
@@ -126,6 +136,13 @@ class IsophoteSegment:
         if self._curvatures is None:
             self._curvatures = computeCurvatures(self._points)
         return self._curvatures
+
+    def coneAngleChanges(self):
+        if self._cone_angle_changes is None:
+            NdL = 2.0 * self._iso_value - 1.0
+            normal_cone = NormalCone(self._L, NdL, self._normals)
+            self._cone_angle_changes = normal_cone.coneAngleChanges()
+        return self._cone_angle_changes
 
     def tangents(self):
         if self._tangents is None:

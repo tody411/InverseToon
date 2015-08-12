@@ -11,18 +11,28 @@ import matplotlib.colors as colors
 import matplotlib.cm as cmx
 
 
-## Color map function with the matplot cmap.
-def colorMap(values, vmin=None, vmax=None, cmap='jet'):
+def colorNorm(vmin, vmax):
+    c_norm = colors.Normalize(vmin=vmin, vmax=vmax)
+    return c_norm
+
+## Scalar map function for the target min, max values.
+def scalarMap(vmin, vmax, cmap='jet'):
+    c_norm = colorNorm(vmin=vmin, vmax=vmax)
+    scalar_map = cmx.ScalarMappable(norm=c_norm, cmap=cmap)
+    return scalar_map
+
+
+## Color map function for the input scalar values.
+def scalarToColor(values, vmin=None, vmax=None, cmap='jet'):
     if vmin is None:
         vmin = np.min(values)
 
     if vmax is None:
         vmax = np.max(values)
 
-    cNorm = colors.Normalize(vmin=vmin, vmax=vmax)
-    scalarMap = cmx.ScalarMappable(norm=cNorm, cmap=cmap)
+    scalar_map = scalarMap(vmin, vmax, cmap)
 
-    return scalarMap.to_rgba(values)
+    return scalar_map.to_rgba(values)
 
 
 def featureTypeColors(values, vmin=None, vmax=None,

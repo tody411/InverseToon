@@ -12,9 +12,10 @@ from inversetoon.data.curve import NormalCurve
 def silhoutteCurve(A_8U):
     h, w = A_8U.shape
     contour = findContours(A_8U, 200.0)
+    contour.resample(span=5)
+
     silhoutteCurve = NormalCurve()
     silhoutteCurve.setContour(contour)
-    silhoutteCurve.resampleCurve(span=5)
 
     silhoutte_contour = findContours(A_8U, 127.0)
 

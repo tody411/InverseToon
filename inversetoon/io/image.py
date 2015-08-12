@@ -65,7 +65,7 @@ def saveImage(file_path, img):
 def loadNormal(file_path):
     C_8U = loadRGBA(file_path)
     A_8U = alpha(C_8U)
-    N_32F = colorToNormal(C_8U, False)
+    N_32F = colorToNormal(C_8U)
     return N_32F, A_8U
 
 

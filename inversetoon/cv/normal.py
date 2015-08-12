@@ -13,7 +13,7 @@ from inversetoon.np.norm import normalizeVectors
 
 
 ## RGBA to normal.
-def colorToNormal(C_8U, fill_background=True):
+def colorToNormal(C_8U, fill_background=False):
     rgb_8U = rgb(C_8U)
     A_8U = alpha(C_8U)
 

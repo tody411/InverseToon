@@ -26,7 +26,7 @@ def plotSegment(plt, segment, color=(0.1, 0.1, 0.3), linewidth=2, **kargs):
 #                                 colors=color, linestyle='solid')
 #     plt.add_collection(line_segments)
 
-    if len(segment) == len(color):
+    if not isinstance(color[0], float):
         for si in range(len(segment))[:-1]:
             plt.plot(segment[si:si + 2, 0], segment[si:si + 2, 1],
                      "-", color=color[si], linewidth=linewidth, **kargs)
@@ -90,10 +90,17 @@ class ScenePlotter:
 
     def showNormalImage(self):
         normal_image = loadRGBA(self._scene.normalImageFile())
-        self._plt.imshow(normal_image)
+        img_plot = self._plt.imshow(normal_image)
+        self._plt.xlim([0, normal_image.shape[1]])
+        self._plt.ylim([normal_image.shape[0], 0])
+        return img_plot
 
     def showAlphaImage(self):
-        self._plt.imshow(self._scene.alphaImage(), cmap=plt.cm.gray)
+        alpha_image = self._scene.alphaImage()
+        img_plot = self._plt.imshow(alpha_image, cmap=plt.cm.gray)
+        self._plt.xlim([0, alpha_image.shape[1]])
+        self._plt.ylim([alpha_image.shape[0], 0])
+        return img_plot
 
     def silhouettePlotter(self):
         return CurvePlotter(self._scene.isophoteMesh().silhouetteCurve(), self._plt)
