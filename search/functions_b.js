@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['rgb',['rgb',['../namespaceinversetoon_1_1cv_1_1image.html#ab9e66d1e1f76e43d065af540afaafd9c',1,'inversetoon::cv::image']]],
-  ['rgb2bgr',['rgb2bgr',['../namespaceinversetoon_1_1cv_1_1image.html#a0d12eef6c5cf83565383829c3acdbaac',1,'inversetoon::cv::image']]],
-  ['rgb2gray',['rgb2gray',['../namespaceinversetoon_1_1cv_1_1image.html#adaa9cd69d02667c0c557049216321801',1,'inversetoon::cv::image']]],
-  ['rgb2lab',['rgb2Lab',['../namespaceinversetoon_1_1cv_1_1image.html#a81772bd731b6066f6144ecd77665bc51',1,'inversetoon::cv::image']]],
-  ['rgba2bgra',['rgba2bgra',['../namespaceinversetoon_1_1cv_1_1image.html#a402823c2f6918839ae06ad7898a2d9b6',1,'inversetoon::cv::image']]]
+  ['normalizeimage',['normalizeImage',['../namespaceinversetoon_1_1cv_1_1normal.html#abac95424a8394ce189c9c131693af3b7',1,'inversetoon::cv::normal']]],
+  ['normalizevector',['normalizeVector',['../namespaceinversetoon_1_1np_1_1norm.html#a9f3d90c2538a1da6e83618b4e4005117',1,'inversetoon::np::norm']]],
+  ['normalizevectors',['normalizeVectors',['../namespaceinversetoon_1_1np_1_1norm.html#a160a22f3f01e1f30c815c221a72048b2',1,'inversetoon::np::norm']]],
+  ['normalsphere',['normalSphere',['../namespaceinversetoon_1_1cv_1_1normal.html#af777fdf7fa3b143033408524305aaac4',1,'inversetoon::cv::normal']]],
+  ['normaltocolor',['normalToColor',['../namespaceinversetoon_1_1cv_1_1normal.html#ae0299d2b26cf743476e0a70ecd1d0718',1,'inversetoon::cv::normal']]],
+  ['normvectors',['normVectors',['../namespaceinversetoon_1_1np_1_1norm.html#a1536bab02b28bd716c1d13f813657b41',1,'inversetoon::np::norm']]]
 ];

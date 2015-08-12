@@ -1,4 +1,4 @@
 var namespaceinversetoon_1_1core =
 [
-    [ "transform", "namespaceinversetoon_1_1core_1_1transform.html", null ]
+    [ "normal_cone", "namespaceinversetoon_1_1core_1_1normal__cone.html", "namespaceinversetoon_1_1core_1_1normal__cone" ]
 ];
