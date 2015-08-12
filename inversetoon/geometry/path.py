@@ -1,7 +1,7 @@
 
 # -*- coding: utf-8 -*-
-## @package inversetoon.geometry
+## @package inversetoon.geometry.path
 #
-#  Simple geometry class definitions.
+#  Path class.
 #  @author      tody
 #  @date        2015/08/12

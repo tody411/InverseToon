@@ -37,3 +37,21 @@ class BoundingBox:
     ## Returns true if the bounding box contains the given point.
     def contains(self, p):
         return self._x_min < p[0] and self._x_max > p[0] and self._y_min < p[1] and self._y_max > p[1]
+
+    ## Plot bounding box with matplot.
+    def plotBoundingBox(self, plt, **kargs):
+        x0, y0 = self.min()
+        x1, y1 = self.max()
+        points = np.array([(x0, y0), (x0, y1), (x1, y1), (x1, y0), (x0, y0)])
+        plt.fill(points[:, 0], points[:, 1], **kargs)
+
+
+if __name__ == '__main__':
+    import matplotlib.pyplot as plt
+    from inversetoon.plot.window import showMaximize
+
+    points = np.random.rand(100, 2)
+    plt.scatter(points[:, 0], points[:, 1])
+    bb = BoundingBox(points)
+    bb.plotBoundingBox(plt)
+    showMaximize()

@@ -7,29 +7,31 @@
 #  @date        2015/08/12
 
 import numpy as np
+from inversetoon.np.norm import normalizeVector
 
 
 ## Simple line class.
 class Line:
     ## Constructor
     def __init__(self, p, q):
-        self._p = p
-        self._q = q
+        self._p = np.array(p)
+        self._q = np.array(q)
         peq = np.array([p[0], p[1], 1])
         qeq = np.array([q[0], q[1], 1])
-        self._leq = np.cross(peq, qeq)
+        self._n = np.cross(peq, qeq)
+        self._n = normalizeVector(self._n)
 
-        self._pq = q - p
-        self._pq *= 1.0 / np.linalg.norm(self._pq)
+        self._t = self._q - self._p
+        self._t = normalizeVector(self._t)
 
     ## Return the positions of the line.
     def points(self):
-        return [self._p, self._q]
+        return np.array([self._p, self._q])
 
     ## Find an intersected point with the given line.
     def intersect(self, l):
-        ipeq = np.cross(self._leq, l._leq)
-        if ipeq[2] < 0.000:
+        ipeq = np.cross(self._n, l._n)
+        if np.abs(ipeq[2]) < 0.000:
             return None
 
         ipeq *= 1.0 / ipeq[2]
@@ -37,10 +39,73 @@ class Line:
 
         return ip
 
+    ## Returns the closest point on this line to the given point.
+    def closestPoint(self, p):
+        return self._closestPointVec(p)
+
+    ## Returns the closest point on this line to the given point.
+    def _closestPointEq(self, p):
+        a, b, c = self._n
+        x0, y0 = p
+
+        x = (b * (b * x0 - a * y0) - a * c) / (a * a + b * b)
+        y = (a * (-b * x0 + a * y0) - b * c) / (a * a + b * b)
+        return np.array([x, y])
+
+    ## Returns the closest point on this line to the given point.
+    def _closestPointVec(self, p):
+        v = p - self._p
+        return np.dot(v, self._t) * self._t + self._p
+
     ## Return the distance from the given point to closest point on the line.
     def distanceToPoint(self, p):
-        vp = p - self._p
+        a, b, c = self._n
+        x0, y0 = p
 
-        vd = vp - np.dot(self._pq, vp) * self._pq
-        d = np.linalg.norm(vd)
-        return np.dot(self._pq, p - self._p)
+        return np.abs((a * x0 + b * y0 + c) / np.sqrt(a ** 2 + b ** 2))
+
+    ## Plot line with matplot.
+    def plotLine(self, plt):
+        ps = self.points()
+        plt.plot(ps[:, 0], ps[:, 1], "-")
+
+    def plotVector(self, plt):
+        hl = 0.02
+        v = self._q - self._p
+        v *= 1.0 - 2.0 * hl
+        plt.arrow(self._p[0], self._p[1], v[0], v[1], head_width=0.5 * hl, head_length=hl)
+
+    ## Plot closest point.
+    def plotClosetPoint(self, plt, p):
+        p = np.array(p)
+        cp = self.closestPoint(p)
+        plt.plot(cp[0], cp[1], "o")
+        plt.annotate('closest point: %s' % cp, xy=cp)
+
+        Line(p, cp).plotLine(plt)
+        Line(self._p, p).plotVector(plt)
+
+if __name__ == '__main__':
+    import matplotlib.pyplot as plt
+    from inversetoon.plot.window import showMaximize
+    l1 = Line((0.0, 0.2), (1.0, 1.0))
+    l2 = Line((0.0, 1.0), (1.0, 0.0))
+    p = np.array((0.2, 0.6))
+
+    ax = plt.subplot(111)
+    ax.set_aspect('1.0')
+
+    l1.plotLine(ax)
+    l2.plotLine(ax)
+
+    ip = l1.intersect(l2)
+
+    plt.title("Intersect at %s" % ip)
+
+    ax.plot(ip[0], ip[1], "o")
+    ax.plot(p[0], p[1], "o")
+
+    l1.plotClosetPoint(plt, p)
+
+    ax.set_aspect('1.0')
+    showMaximize()
