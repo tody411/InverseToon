@@ -39,8 +39,6 @@ def coordinateFrame(v):
 
     a, cos_t, sin_t = rotationFromVectors(z_axis, v)
 
-    print a, cos_t, sin_t
-
     if sin_t > epsilon:
         v_x = rotateVector(a, x_axis, cos_t, sin_t)
         v_y = rotateVector(a, y_axis, cos_t, sin_t)

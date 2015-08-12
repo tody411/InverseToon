@@ -7,6 +7,8 @@
 #  @author      tody
 #  @date        2015/07/31
 
+import matplotlib.pyplot as plt
+from matplotlib.collections import LineCollection
 from inversetoon.io.image import loadRGBA
 
 
@@ -20,7 +22,19 @@ def plotVectors(plt, ps, vectors, color=(1.0, 0.0, 0.0), l=40):
 
 ## Plot segment data as polylines.
 def plotSegment(plt, segment, color=(0.1, 0.1, 0.3), linewidth=2, **kargs):
-    plt.plot(segment[:, 0], segment[:, 1], "-", color=color, linewidth=linewidth, **kargs)
+#     line_segments = LineCollection([segment], linewidths=linewidth,
+#                                 colors=color, linestyle='solid')
+#     plt.add_collection(line_segments)
+
+    if len(segment) == len(color):
+        for si in range(len(segment))[:-1]:
+            plt.plot(segment[si:si + 2, 0], segment[si:si + 2, 1],
+                     "-", color=color[si], linewidth=linewidth, **kargs)
+
+    else:
+        plt.plot(segment[:, 0], segment[:, 1], "-", color=color, linewidth=linewidth, **kargs)
+
+
 
 
 ## Curve plotter.
@@ -42,7 +56,7 @@ class CurvePlotter:
         self._plt.scatter(ps[:, 0], ps[:, 1], c=color, s=size, **kargs)
 
     ## Plot normal vectors.
-    def plotNormalVectors(self, color=(1.0, 0.0, 0.0), l=40, step=10):
+    def plotNormalVectors(self, color=(1.0, 0.0, 0.0), l=40, step=3):
         ps = self._curve.CVs()[::step]
         ns = self._curve.normals()[::step]
 
@@ -79,7 +93,7 @@ class ScenePlotter:
         self._plt.imshow(normal_image)
 
     def showAlphaImage(self):
-        self._plt.imshow(self._scene.alphaImage())
+        self._plt.imshow(self._scene.alphaImage(), cmap=plt.cm.gray)
 
     def silhouettePlotter(self):
         return CurvePlotter(self._scene.isophoteMesh().silhouetteCurve(), self._plt)
@@ -87,3 +101,9 @@ class ScenePlotter:
     def isophotePlotter(self, isophote_id):
         isophote = self._scene.isophoteMesh().isophoteCurves()[isophote_id]
         return CurvePlotter(isophote, self._plt)
+
+    def isophotePlotters(self):
+        plotters = []
+        for isophote in self._scene.isophoteMesh().isophoteCurves():
+            plotters.append(CurvePlotter(isophote, self._plt))
+        return plotters

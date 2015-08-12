@@ -32,6 +32,18 @@ class Contour:
     def closing(self):
         return self._closing
 
+    ## Resample contours.
+    def resample(self, span=10):
+        segments_resampled = []
+
+        for segment in self._segments:
+            segment_resampled = list(segment[::span])
+            segment_resampled.append(segment[-1])
+
+            segments_resampled.append(np.array(segment_resampled))
+
+        self._segments = segments_resampled
+
     ## Clip contours by clipping Mask.
     def clipByMask(self, M_8U, endpoints=True):
         if M_8U is None:
@@ -55,15 +67,21 @@ class Contour:
                         segments_clipped.append(np.array(segment_clipped))
                         segment_clipped = []
                         p_start = None
-                        continue
+
+                    continue
 
                 if endpoints:
                     if p_start is not None:
                         segment_clipped.append(p_start)
+                        p_start = None
 
                 segment_clipped.append(p)
 
         if len(segment_clipped) > 0:
             segments_clipped.append(np.array(segment_clipped))
+
+        p = self._segments[0][0]
+        if M_8U[p[1], p[0]] == 255:
+            self.setClosing(False)
 
         self._segments = segments_clipped

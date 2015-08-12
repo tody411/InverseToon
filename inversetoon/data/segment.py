@@ -67,8 +67,7 @@ def computeTangents(points):
     t2[-1] = t2[-2]
 
     t = t1
-    print t.shape
-    print t
+
     t = normalizeVectors(t)
     t[:, 1] = - t[:, 1]
 

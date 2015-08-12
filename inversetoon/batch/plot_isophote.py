@@ -20,19 +20,16 @@ def datasetFunc(data_name):
     silhouette_plotter = plotter.silhouettePlotter()
 
     plt.title('Isophote Scene')
-    plt.subplot(121)
-    plt.title('Normal')
     plotter.showNormalImage()
-
-    plt.subplot(122)
-    plt.title('Alpha')
-    plotter.showAlphaImage()
     #silhouette_plotter.plotCVs()
     silhouette_plotter.plotNormalVectors()
-    silhouette_plotter.plotCurves()
+    silhouette_plotter.plotCurves(color=(0.1, 0.5, 0.1))
+
+    for isophote_plotter in plotter.isophotePlotters():
+        #isophote_plotter.plotCVs()
+        isophote_plotter.plotCurves(color=(0.1, 0.1, 0.3))
+        isophote_plotter.plotNormalVectors(color=(0.1, 0.1, 0.3), step=5)
     showMaximize()
-
-
 
 
 if __name__ == '__main__':

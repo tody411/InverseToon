@@ -20,6 +20,7 @@ def colorToNormal(C_8U, fill_background=True):
     C_32F = to32F(rgb_8U)
 
     N_32F = 2.0 * C_32F - 1.0
+    N_32F = cv2.bilateralFilter(N_32F, 0, 0.1, 5)
 
     if fill_background:
         N_32F[A_8U < 10, :] = np.array([0.0, 0.0, 0.0])

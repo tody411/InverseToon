@@ -33,7 +33,7 @@ def computeIsophoteCurves(N_32F, L, S_8U):
 
 def normalToIsophoteFile(normal_file, scene_file, L1=np.array([-0.5, 0.5, 0.2]), L2=np.array([0.5, 0.5, 0.2])):
     N_32F, A_8U = loadNormal(normal_file)
-    #showNormal(N_32F)
+
     silhoutte_curve, S_8U = silhoutteCurve(A_8U)
     silhoutte_curve.setNormalImage(N_32F)
 

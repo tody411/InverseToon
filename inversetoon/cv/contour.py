@@ -17,8 +17,6 @@ def segmentsFromCV(cv_segments):
     segments = []
 
     for segment in cv_segments:
-        print np.array(segment).shape
-
         segment = np.array(segment).reshape(-1, 2)
         segments.append(segment)
 

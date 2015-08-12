@@ -62,7 +62,8 @@ class Curve(Data):
 
         for segment in self._segments_cvIDs:
             segment_resampled = segment[::span]
-            segment_resampled.append(segment[-1])
+            if segment_resampled[-1] != segment[-1]:
+                segment_resampled.append(segment[-1])
 
             segments_resampled.append(segment_resampled)
 
