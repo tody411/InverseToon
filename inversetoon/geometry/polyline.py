@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ## @package inversetoon.geometry.polyline
 #
-#  Polyline class.
+#  Implementation of 2D polyline.
 #  @author      tody
 #  @date        2015/08/12
 
@@ -11,48 +11,53 @@ from inversetoon.geometry.line import Line
 from inversetoon.util.timer import timing_func
 
 
+## Simple bounding box hierarchy for the given polints.
+#
+#  Usage:
+#  ```
+#  bvh1 = BVH(points1)
+#  bvh2 = BVH(points2)
+#  ibvhs = bvh1.intersect(bvh2)
+#  for ibvh1, ibvh2, ip in ibvhs:
+#      print ip
+#  ```
 class BVH:
     ## Constructor
     def __init__(self, points, level=0):
         self._level = level
         self._bb = BoundingBox(points)
         self._children = []
-        self.createChildren(points)
+        self._line = None
+        self._createChildren(points)
 
+    ## Return if the node is leaf.
     def isLeaf(self):
         return len(self._children) == 0
 
+    ## Return the points in the node.
     def points(self):
         return self._points
 
+    ## Return the children in the node.
     def children(self):
         if self.isLeaf():
             return [self]
 
         return self._children
 
-    def createChildren(self, points):
-        if len(points) < 5:
-            self._points = points
-            self._line = Line(self._points[0], self._points[-1])
-            return
-
-        points_left = points[:len(points) / 2 + 1]
-        points_right = points[len(points) / 2:]
-
-        self._children = [BVH(points_left, self._level + 1),
-                          BVH(points_right, self._level + 1)]
-
+    ## Return true if the given point is included in the node.
     def contains(self, p):
         return self._bb.contains(p)
 
+    ## Find intersections with the given BVH structure.
     def intersect(self, bvh):
         if self._bb.intersects(bvh._bb):
             if bvh.isLeaf() and self.isLeaf():
                 ip = self._line.intersect(bvh._line)
 
-                if self.contains(ip) and bvh.contains(ip):
+                if ip is not None:
                     return [(self, bvh, ip)]
+
             else:
                 ibvhs = []
                 for self_ch in self.children():
@@ -66,6 +71,7 @@ class BVH:
             return None
         return None
 
+    ## Plot BVH.
     def plotBVH(self, plt, color="b", alpha=0.05):
         self._bb.plotBoundingBox(plt, color=color, alpha=alpha)
         if self.isLeaf():
@@ -74,31 +80,48 @@ class BVH:
         for bvh in self.children():
             bvh.plotBVH(plt, color)
 
+    def _createChildren(self, points):
+        if len(points) < 5:
+            self._points = points
+            self._line = Line(self._points[0], self._points[-1])
+            return
 
-## Polyline class.
+        points_left = points[:len(points) / 2 + 1]
+        points_right = points[len(points) / 2:]
+
+        self._children = [BVH(points_left, self._level + 1),
+                          BVH(points_right, self._level + 1)]
+
+
+## Implementation of 2D polyline.
 class Polyline:
     ## Constructor
-    @timing_func
     def __init__(self, points):
         self._points = points
         self._bvh = BVH(points)
 
+    ## Return points on the polyline.
+    def points(self):
+        return self._points
+
+    ## Find intersected points with the given polyline.
+    #
+    #  BVH structure is used for fast intersection.
     def intersect(self, pl):
         ibvhs = self._bvh.intersect(pl._bvh)
         ips = [ip for ibvh1, ibvh2, ip in ibvhs]
         return ips
 
-    def distance(self, p):
-        return np.dot(self._t, p - self._p)
-
+    ## Plot polyline.
     def plotPolyline(self, plt):
         ps = self._points
         plt.plot(ps[:, 0], ps[:, 1], "-")
 
+    ## Plot BVH structure.
     def plotBVH(self, plt, color="b"):
         self._bvh.plotBVH(plt, color=color)
 
-    @timing_func
+    ## Plot intersection with BVH structure.
     def plotIntersection(self, plt,  pl):
         ibvhs = self._bvh.intersect(pl._bvh)
 

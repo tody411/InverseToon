@@ -2,17 +2,25 @@
 # -*- coding: utf-8 -*-
 ## @package inversetoon.geometry.line
 #
-#  Line class.
+#  Implementation of a 2D line.
 #  @author      tody
 #  @date        2015/08/12
 
 import numpy as np
 from inversetoon.np.norm import normalizeVector
+from inversetoon.geometry.bounding_box import BoundingBox
 
 
-## Simple line class.
+## Implementation of a 2D line.
 class Line:
     ## Constructor
+    #
+    #  @param p start point
+    #  @param q end point
+    #
+    #  Line representation: (a, b, c) = (x1, y1, 1) $\times$ (x2, y2, 1)
+    #  - points on line: (a, b, c) $\cdot$ (x, y , 1) = 0
+    #  - line intersection: (x, y, w) = (a1, b1, c1) $\times$ (a2, b2, c2)
     def __init__(self, p, q):
         self._p = np.array(p)
         self._q = np.array(q)
@@ -23,6 +31,7 @@ class Line:
 
         self._t = self._q - self._p
         self._t = normalizeVector(self._t)
+        self._bb = BoundingBox([p, q])
 
     ## Return the positions of the line.
     def points(self):
@@ -37,7 +46,10 @@ class Line:
         ipeq *= 1.0 / ipeq[2]
         ip = np.array([ipeq[0], ipeq[1]])
 
-        return ip
+        if self._bb.contains(ip):
+            return ip
+
+        return None
 
     ## Returns the closest point on this line to the given point.
     def closestPoint(self, p):
