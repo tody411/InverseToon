@@ -7,7 +7,7 @@
 #  @date        2015/07/29
 
 from setuptools import setup, find_packages
-from npr_sfs import __author__, __version__, __license__
+from inversetoon import __author__, __version__, __license__
 
 setup(
         name = 'inversetoon',
