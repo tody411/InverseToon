@@ -54,7 +54,7 @@ class Line:
         ipeq *= 1.0 / ipeq[2]
         ip = np.array([ipeq[0], ipeq[1]])
 
-        if self._bb.contains(ip):
+        if self._bb.contains(ip) and l._bb.contains(ip):
             return ip
 
         return None
