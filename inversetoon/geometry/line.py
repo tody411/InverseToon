@@ -29,13 +29,21 @@ class Line:
         self._n = np.cross(peq, qeq)
         self._n = normalizeVector(self._n)
 
-        self._t = self._q - self._p
-        self._t = normalizeVector(self._t)
+        self._e = self._q - self._p
+        self._e = normalizeVector(self._e)
         self._bb = BoundingBox([p, q])
 
     ## Return the positions of the line.
     def points(self):
         return np.array([self._p, self._q])
+
+    ## Return the position of the parameter [0, 1].
+    def pointAt(self, t):
+        return self._p + t * self.length() * self._e
+
+    ## Return the length of the line.
+    def length(self):
+        return np.linalg.norm(self._q - self._p)
 
     ## Find an intersected point with the given line.
     def intersect(self, l):
@@ -67,7 +75,13 @@ class Line:
     ## Returns the closest point on this line to the given point.
     def _closestPointVec(self, p):
         v = p - self._p
-        return np.dot(v, self._t) * self._t + self._p
+        return np.dot(v, self._e) * self._e + self._p
+
+    ## Return the parameter of the closest point.
+    def closestParam(self, p):
+        v = p - self._p
+        t = np.dot(v, self._e)
+        return t / self.length()
 
     ## Return the distance from the given point to closest point on the line.
     def distanceToPoint(self, p):
@@ -111,8 +125,9 @@ if __name__ == '__main__':
     l2.plotLine(ax)
 
     ip = l1.intersect(l2)
+    t = l1.closestParam(ip)
 
-    plt.title("Intersect at %s" % ip)
+    plt.title("Intersect at t, p: %s, %s" % (t, ip))
 
     ax.plot(ip[0], ip[1], "o")
     ax.plot(p[0], p[1], "o")
