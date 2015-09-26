@@ -190,6 +190,7 @@ class Polyline:
             print ip
             plt.plot(ip[0] + 0.001, ip[1] + 0.001, "x", color="g")
 
+
 def splinePoints(cvs, num_points=100):
     from scipy.interpolate import UnivariateSpline
     spl = UnivariateSpline(cvs[:, 0], cvs[:, 1])

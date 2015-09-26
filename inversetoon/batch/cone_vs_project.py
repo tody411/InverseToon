@@ -21,6 +21,7 @@ from inversetoon.np.norm import normVectors
 from inversetoon.util.logger import getLogger
 logger = getLogger(__name__)
 
+
 def computeData(scene):
     isophote_mesh = scene.isophoteMesh()
     isophote_curves = isophote_mesh.isophoteCurves()
