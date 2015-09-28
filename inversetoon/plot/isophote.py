@@ -35,8 +35,6 @@ def plotSegment(plt, segment, color=(0.1, 0.1, 0.3), linewidth=2, **kargs):
         plt.plot(segment[:, 0], segment[:, 1], "-", color=color, linewidth=linewidth, **kargs)
 
 
-
-
 ## Curve plotter.
 class CurvePlotter:
     ## Constructor
