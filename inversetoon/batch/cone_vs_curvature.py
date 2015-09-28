@@ -10,11 +10,14 @@ import matplotlib.pyplot as plt
 
 from inversetoon.datasets.isophote import loadData
 from inversetoon.batch.batch import isophoteDataSetBatch
-from inversetoon.plot.isophote import ScenePlotter, plotSegment
+from inversetoon.plot.isophote import ScenePlotter, plotSegment, plotVectors, plotNormalColors
 from inversetoon.plot.window import showMaximize
-from inversetoon.core.coloring import scalarToColor, featureTypeColors
+from inversetoon.core.coloring import scalarToColor, featureTypeColors, scalarMap
 from inversetoon.core.smoothing import smoothing
 from inversetoon.results.results import resultDir, resultFile
+from inversetoon.core.normal_cone import NormalConeInterpolation
+from inversetoon.np.norm import normVectors
+from inversetoon.core.angle import angleErros
 
 
 def plotFeatureChanges(plt, ps, feature):
@@ -52,6 +55,7 @@ def rescaleCurvature(curvatures, cone_angle_range):
     curvatures_scaled = (cone_angle_range[1] - cone_angle_range[0]) * curvatures_scaled + cone_angle_range[0]
     return curvatures_scaled
 
+
 def computeData(scene):
     isophote_mesh = scene.isophoteMesh()
     isophote_curves = isophote_mesh.isophoteCurves()
@@ -62,13 +66,29 @@ def computeData(scene):
         isophote_segments = isophote_curve.toCurveSegments()
 
         for isophote_segment in isophote_segments:
+            isophote_segment = isophote_segment.divide(int(0.2 * isophote_segment.numPoints()), int(0.5 * isophote_segment.numPoints()))
+
+            if isophote_segment.numPoints() < 3:
+                continue
+
+            I = isophote_segment.isoValue()
+            I = 2.0 * I - 1.0
+
             curvatures = isophote_segment.curvatures()
             curvatures = smoothing(curvatures, smooth=20.0)
 
+            normals_gt = isophote_segment.normals()
+            parameters = isophote_segment.arcLengthParameters()
+
+            normals_al = NormalConeInterpolation(normals_gt[0],
+                                                 normals_gt[-1],
+                                                 isophote_segment.lightDir(),
+                                                 I).interpolate(parameters)
+
+            normals_al_error = angleErros(normals_gt, normals_al)
+
             cone_angle_changes = isophote_segment.coneAngleChanges()
             cone_angle_changes = smoothing(cone_angle_changes, smooth=0.05)
-
-
 
             misclassification = curvatures * cone_angle_changes
 
@@ -83,7 +103,10 @@ def computeData(scene):
                               "curvatures": curvatures,
                               "cone_angle_changes": cone_angle_changes,
                               "misclassification_segments": misclassification_segments,
-                              "misclassification_rate": misclassification_rate})
+                              "misclassification_rate": misclassification_rate,
+                              "normals_gt": normals_gt,
+                              "normals_al": normals_al,
+                              "normals_al_error": normals_al_error})
     return data_list
 
 
@@ -113,7 +136,7 @@ def curvatureVSconeAnglesFigure(scnene_plotter, data_name, segment_id, result_da
     for segment in result_data["misclassification_segments"]:
         plotSegment(plt, segment, color=(0.8, 0.2, 0.2))
 
-    result_name = "conne_vs_curvature"
+    result_name = "cone_vs_curvature/misclassification"
     result_dir = resultDir(result_name)
 
     result_file = resultFile(result_dir, data_name + "_%s" % segment_id)
@@ -146,20 +169,67 @@ def curvatureVSconeAnglesSignal(scnene_plotter, data_name, segment_id, result_da
     rescaled_curvatures = rescaleCurvature(curvatures, [cone_angle_changes[0], cone_angle_changes[-1]])
     plt.plot(xs, curvatures, label='Curvatures')
     plt.plot(xs, cone_angle_changes, label='Cone Angles')
-    plt.plot(xs, rescaled_curvatures, label='Rescaled Curvatures')
+    # plt.plot(xs, rescaled_curvatures, label='Rescaled Curvatures')
     plt.legend()
 
-    result_name = "conne_vs_curvature/signal"
+    result_name = "cone_vs_curvature/signal"
     result_dir = resultDir(result_name)
 
     result_file = resultFile(result_dir, data_name + "_%s" % segment_id)
     plt.savefig(result_file, transparent=True)
 
+
+def curvatureVSconeAnglesNormal(scnene_plotter, data_name, segment_id, result_data):
+    fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(11, 5))
+    font_size = 15
+    fig.subplots_adjust(left=0.05, right=0.9, top=0.86, hspace=0.1, wspace=0.05)
+    fig.suptitle("Arc-Length Interpolation", fontsize=font_size)
+
+    plt.subplot(131)
+    scnene_plotter.showNormalImage()
+    plt.axis('off')
+    plt.title('Ground Truth\n', fontsize=font_size)
+    plotSegment(plt, result_data["ps"], color=(0.5, 0.1, 0.1))
+    # plotVectors(plt, result_data["ps"], result_data["normals_gt"], step=5)
+
+    plt.subplot(132)
+    scnene_plotter.showNormalImage()
+    plt.axis('off')
+    plt.title('Interpolated Normal\n', fontsize=font_size)
+    plotNormalColors (plt, result_data["ps"], result_data["normals_al"])
+
+    plt.subplot(133)
+    plt.title('Interpolation Error\n %4.1f $^\circ$' % np.max(result_data["normals_al_error"]), fontsize=font_size)
+    scnene_plotter.showNormalImage()
+    plt.axis('off')
+
+    error_min = 0.0
+    error_max = 30.0
+    #error_max = np.max([0.0, np.max(result_data["normals_al_error"])])
+    error_colors = scalarToColor(result_data["normals_al_error"], vmin=error_min, vmax=error_max)
+    plotSegment(plt, result_data["ps"], error_colors)
+
+    ax_colorbar = fig.add_axes([0.9, 0.15, 0.03, 0.7])
+
+    scalar_map = scalarMap(error_min, error_max)
+    scalar_map.set_array([error_min, error_max])
+    fig.colorbar(scalar_map, cax=ax_colorbar)
+
+    result_name = "cone_vs_curvature/normal"
+    result_dir = resultDir(result_name)
+
+    result_file = resultFile(result_dir, data_name + "_%s" % segment_id)
+    plt.savefig(result_file, transparent=True)
+
+
 def resultDataFunc(scnene_plotter, data_name, segment_id, result_data):
     if len(result_data["ps"]) < 30:
         return
 
-    curvatureVSconeAnglesSignal(scnene_plotter, data_name, segment_id, result_data)
+    curvatureVSconeAnglesNormal(scnene_plotter, data_name, segment_id, result_data)
+    #curvatureVSconeAnglesFigure(scnene_plotter, data_name, segment_id, result_data)
+    #curvatureVSconeAnglesSignal(scnene_plotter, data_name, segment_id, result_data)
+
 
 def datasetFunc(data_name):
     scene = loadData(data_name)

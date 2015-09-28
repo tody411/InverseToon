@@ -13,8 +13,8 @@ from inversetoon.io.image import loadRGBA
 
 
 ## Plot 2D vectors as arrows.
-def plotVectors(plt, ps, vectors, color=(1.0, 0.0, 0.0), l=40):
-    for p, v in zip(ps, vectors):
+def plotVectors(plt, ps, vectors, color=(1.0, 0.0, 0.0), l=40, step=1):
+    for p, v in zip(ps[::step], vectors[::step]):
         lv = l * v[:2]
         plt.arrow(p[0], p[1], lv[0], - lv[1],
                   head_width=0.05 * l, head_length=0.1 * l, fc=color, ec=color)
@@ -33,6 +33,12 @@ def plotSegment(plt, segment, color=(0.1, 0.1, 0.3), linewidth=2, **kargs):
 
     else:
         plt.plot(segment[:, 0], segment[:, 1], "-", color=color, linewidth=linewidth, **kargs)
+
+
+## Plot normal colors.
+def plotNormalColors(plt, points, normals, linewidth=2):
+    cs = 0.5 * normals + 0.5
+    plotSegment(plt, points, cs, linewidth=linewidth)
 
 
 ## Curve plotter.

@@ -15,6 +15,7 @@ def colorNorm(vmin, vmax):
     c_norm = colors.Normalize(vmin=vmin, vmax=vmax)
     return c_norm
 
+
 ## Scalar map function for the target min, max values.
 def scalarMap(vmin, vmax, cmap='jet'):
     c_norm = colorNorm(vmin=vmin, vmax=vmax)

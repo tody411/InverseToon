@@ -121,6 +121,9 @@ class IsophoteSegment:
     def points(self):
         return self._points
 
+    def numPoints(self):
+        return len(self._points)
+
     def setCVIDs(self, cvIDs):
         self._cvIDs = cvIDs
 
@@ -154,6 +157,15 @@ class IsophoteSegment:
 
     def normals(self):
         return self._normals
+
+    def divide(self, start, end):
+        end = min(end, len(self._points))
+        start = min(start, end)
+        new_segment = IsophoteSegment(self._points[start:end], self._cvIDs[start:end])
+        new_segment.setIsoValue(self._iso_value)
+        new_segment.setLightDir(self._L)
+        new_segment.setNormals(self._normals[start:end])
+        return new_segment
 
     def __str__(self):
         info = "CurveSegment:\n"
