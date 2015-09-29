@@ -59,4 +59,7 @@ Temporary Items
 doxygen/*.bat
 
 # Reuslts
-inversetoon/results/cone_vs_curvature
+inversetoon/results/*.png
+inversetoon/results/*/*.png
+inversetoon/results/*/*/*.png
+inversetoon/results/*/*/*/*.png

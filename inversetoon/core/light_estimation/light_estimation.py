@@ -19,7 +19,7 @@ def estimateLightDir(Ns, Is):
     Is = Is[I_positive]
 
     NdLs = Is
-    L = estimateLightDirProjection(Ns, NdLs)
+    L = estimateLightDirLstSq(Ns, NdLs)
 
     error = np.linalg.norm(np.dot(Ns, L) - NdLs)
 

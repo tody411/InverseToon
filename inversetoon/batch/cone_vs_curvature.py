@@ -75,7 +75,8 @@ def computeData(scene):
             I = 2.0 * I - 1.0
 
             curvatures = isophote_segment.curvatures()
-            curvatures = smoothing(curvatures, smooth=20.0)
+            curvatures = smoothing(curvatures, smooth=15.0)
+            curvatures = curvatures / np.max(np.abs(curvatures))
 
             normals_gt = isophote_segment.normals()
             parameters = isophote_segment.arcLengthParameters()
@@ -89,6 +90,7 @@ def computeData(scene):
 
             cone_angle_changes = isophote_segment.coneAngleChanges()
             cone_angle_changes = smoothing(cone_angle_changes, smooth=0.05)
+            cone_angle_changes = cone_angle_changes / np.max(np.abs(cone_angle_changes))
 
             misclassification = curvatures * cone_angle_changes
 
@@ -114,7 +116,7 @@ def curvatureVSconeAnglesFigure(scnene_plotter, data_name, segment_id, result_da
     fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(11, 5))
     font_size = 15
     fig.subplots_adjust(left=0.05, right=0.95, top=0.86, hspace=0.1, wspace=0.05)
-    fig.suptitle("Curvature VS Cone Angles", fontsize=font_size)
+    fig.suptitle("Curvature VS Cone Angle", fontsize=font_size)
 
     plt.subplot(131)
     scnene_plotter.showNormalImage()
@@ -125,7 +127,7 @@ def curvatureVSconeAnglesFigure(scnene_plotter, data_name, segment_id, result_da
     plt.subplot(132)
     scnene_plotter.showNormalImage()
     plt.axis('off')
-    plt.title('Cone Angles\n', fontsize=font_size)
+    plt.title('Cone Angle\n', fontsize=font_size)
     plotFeatureChanges(plt, result_data["ps"], result_data["cone_angle_changes"])
 
     plt.subplot(133)
@@ -147,19 +149,21 @@ def curvatureVSconeAnglesSignal(scnene_plotter, data_name, segment_id, result_da
     fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(11, 5))
     font_size = 15
     fig.subplots_adjust(left=0.05, right=0.9, top=0.86, hspace=0.1, wspace=0.05)
-    fig.suptitle("Curvature VS Cone Angles", fontsize=font_size)
+    fig.suptitle("Curvature VS Cone Angle", fontsize=font_size)
 
     plt.subplot(131)
     scnene_plotter.showNormalImage()
     plt.axis('off')
     plt.title('Curvature', fontsize=font_size)
-    plotFeatureChanges(plt, result_data["ps"], result_data["curvatures"])
+    curvature_colors = scalarToColor(result_data["curvatures"], vmin=-1.0, vmax=1.0)
+    plotSegment(plt, result_data["ps"], curvature_colors)
 
     plt.subplot(132)
     scnene_plotter.showNormalImage()
     plt.axis('off')
-    plt.title('Cone Angles', fontsize=font_size)
-    plotFeatureChanges(plt, result_data["ps"], result_data["cone_angle_changes"])
+    plt.title('Cone Angle', fontsize=font_size)
+    cone_colors = scalarToColor(result_data["cone_angle_changes"], vmin=-1.0, vmax=1.0)
+    plotSegment(plt, result_data["ps"], cone_colors)
 
     plt.subplot(133)
     plt.title('Signals', fontsize=font_size)
@@ -167,8 +171,8 @@ def curvatureVSconeAnglesSignal(scnene_plotter, data_name, segment_id, result_da
     curvatures = result_data["curvatures"]
     cone_angle_changes = result_data["cone_angle_changes"]
     rescaled_curvatures = rescaleCurvature(curvatures, [cone_angle_changes[0], cone_angle_changes[-1]])
-    plt.plot(xs, curvatures, label='Curvatures')
-    plt.plot(xs, cone_angle_changes, label='Cone Angles')
+    plt.plot(xs, curvatures, label='Curvature')
+    plt.plot(xs, cone_angle_changes, label='Cone Angle')
     # plt.plot(xs, rescaled_curvatures, label='Rescaled Curvatures')
     plt.legend()
 
@@ -226,9 +230,9 @@ def resultDataFunc(scnene_plotter, data_name, segment_id, result_data):
     if len(result_data["ps"]) < 30:
         return
 
-    curvatureVSconeAnglesNormal(scnene_plotter, data_name, segment_id, result_data)
-    #curvatureVSconeAnglesFigure(scnene_plotter, data_name, segment_id, result_data)
-    #curvatureVSconeAnglesSignal(scnene_plotter, data_name, segment_id, result_data)
+    # curvatureVSconeAnglesNormal(scnene_plotter, data_name, segment_id, result_data)
+    # curvatureVSconeAnglesFigure(scnene_plotter, data_name, segment_id, result_data)
+    curvatureVSconeAnglesSignal(scnene_plotter, data_name, segment_id, result_data)
 
 
 def datasetFunc(data_name):
