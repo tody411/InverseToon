@@ -35,10 +35,10 @@ def estimateResultFunc(data_name, target_name,
 
     fig = plt.figure(figsize=(8, 8))
     fig.suptitle("Light estimation: %s" % method_name)
-    fig.subplots_adjust(left=0.05, bottom=0.05, right=0.95, top=0.82, wspace=0.02, hspace=0.3)
+    fig.subplots_adjust(left=0.05, bottom=0.05, right=0.95, top=0.82, wspace=0.02, hspace=0.4)
 
     plt.subplot(2, 2, 1)
-    plt.title("Ground truth: %s" % L_g)
+    plt.title("Ground truth\n%s" % L_g)
     showLightSphere(plt, L_g)
     plt.axis('off')
 
@@ -51,7 +51,7 @@ def estimateResultFunc(data_name, target_name,
 
     L, error = estimate_func(Ns, Is)
     plt.subplot(2, 2, 3)
-    plt.title("Estimated: %s\n%s" % (L, error))
+    plt.title("Estimated: \n%s\n%s\n" % (L, error))
     showLightSphere(plt, L)
     plt.axis('off')
 
