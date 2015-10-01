@@ -12,6 +12,7 @@ from inversetoon.cv.image import luminance
 from inversetoon.core.silhouette import silhoutteCurve, silhouetteNormal
 from inversetoon.plot.window import showMaximize
 from inversetoon.results.results import resultDir, resultFile
+from inversetoon.core.angle import angleError
 
 
 def showLightSphere(plt, L):
@@ -27,11 +28,13 @@ def estimateResultFunc(data_name, target_name,
     N_sil = silhouetteNormal(A_8U)
     silhouette_curve.setNormalImage(N_sil)
 
-    Ns = silhouette_curve.normals()
+    N_sil = silhouette_curve.normals()
 
     cvs = silhouette_curve.CVs()
 
-    Is = np.array([I_32F[cv[1], cv[0]] for cv in cvs])
+    I_sil = np.array([I_32F[cv[1], cv[0]] for cv in cvs])
+
+    input_data = {"N_sil": N_sil,"I_sil": I_sil, "I": I_32F}
 
     fig = plt.figure(figsize=(8, 8))
     fig.suptitle("Light estimation: %s" % method_name)
@@ -49,9 +52,11 @@ def estimateResultFunc(data_name, target_name,
     plt.imshow(I_32F)
     plt.axis('off')
 
-    L, error = estimate_func(Ns, Is)
+    output_data = estimate_func(input_data)
+    L = output_data["L"]
+    L_error = angleError(L_g, L)
     plt.subplot(2, 2, 3)
-    plt.title("Estimated: \n%s\n%s\n" % (L, error))
+    plt.title("Estimated: \n%s\n%s\n" % (L, L_error))
     showLightSphere(plt, L)
     plt.axis('off')
 

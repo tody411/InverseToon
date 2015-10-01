@@ -13,18 +13,18 @@ def luminanceClusters(Is, num_bins=16):
     return I_ids
 
 
-def estimateLightDir(Ns, Is):
-    I_maxID = np.argmax(Is)
-    L = Ns[I_maxID]
+def estimateLightDir(N_sil, I_sil):
+    I_maxID = np.argmax(I_sil)
+    L = N_sil[I_maxID]
 
     num_bins = 16
-    I_ids = luminanceClusters(Is, num_bins)
+    I_ids = luminanceClusters(I_sil, num_bins)
 
     N_centers = np.zeros((num_bins, 3))
     hist = np.zeros((num_bins))
 
     for ni, I_id in enumerate(I_ids):
-        N_centers[I_id] += Ns[ni]
+        N_centers[I_id] += N_sil[ni]
         hist[I_id] += 1.0
 
     hist_positive = hist > 0.0

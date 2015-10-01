@@ -12,18 +12,22 @@ from inversetoon.np.norm import normalizeVector
 from inversetoon.core.light_estimation.light_estimation_common import testToon
 
 
-def estimateLightDir(Ns, Is):
-    I_positive = Is > 0.001
+def estimateLightDir(input_data):
+    N_sil = input_data["N_sil"]
+    I_sil = input_data["I_sil"]
 
-    Ns = Ns[I_positive]
-    Is = Is[I_positive]
+    I_positive = I_sil > 0.001
 
-    NdLs = Is
-    L = estimateLightDirLstSq(Ns, NdLs)
+    N_sil = N_sil[I_positive]
+    I_sil = I_sil[I_positive]
 
-    error = np.linalg.norm(np.dot(Ns, L) - NdLs)
+    NdLs = I_sil
+    L = estimateLightDirLstSq(N_sil, NdLs)
 
-    return L, error
+    output_data = {"L": L}
+#     error = np.linalg.norm(np.dot(N_sil, L) - NdLs)
+
+    return output_data
 
 
 def estimateLightDirLstSq(Ns, NdLs):
