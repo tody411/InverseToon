@@ -30,11 +30,11 @@ def estimateResultFunc(data_name, target_name,
 
     N_sil = silhouette_curve.normals()
 
-    cvs = silhouette_curve.CVs()
+    cvs_sil = silhouette_curve.CVs()
 
-    I_sil = np.array([I_32F[cv[1], cv[0]] for cv in cvs])
+    I_sil = np.array([I_32F[cv[1], cv[0]] for cv in cvs_sil])
 
-    input_data = {"N_sil": N_sil,"I_sil": I_sil, "I": I_32F}
+    input_data = {"N_sil": N_sil,"I_sil": I_sil, "cvs_sil": cvs_sil, "I": I_32F}
 
     fig = plt.figure(figsize=(8, 8))
     fig.suptitle("Light estimation: %s" % method_name)
