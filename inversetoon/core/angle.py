@@ -11,9 +11,9 @@ import numpy as np
 
 def angleError(N1, N2):
     cos_error = np.dot(N1, N2)
-    cos_errors = np.clip(cos_error, -1.0, 1.0)
+    cos_error = np.clip(cos_error, -1.0, 1.0)
     angle_error = np.arccos(cos_error)
-    return angle_error
+    return np.degrees(angle_error)
 
 
 def angleErros(Ns1, Ns2):

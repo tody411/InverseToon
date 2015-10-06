@@ -74,15 +74,15 @@ def arcVSprojectFigure(scnene_plotter, data_name, segment_id, result_data):
     fig, axes = plt.subplots(nrows=2, ncols=1, figsize=(11, 5))
     font_size = 15
     fig.subplots_adjust(left=0.15, right=0.9, top=0.86, hspace=0.1, wspace=0.05)
-    fig.suptitle("Arc Length VS Project 3D", fontsize=font_size)
+    fig.suptitle("Arc-Length Interpolation VS Project 3D", fontsize=font_size)
 
     plt.subplot(131)
     plt.title('Normal Vectors\n', fontsize=font_size)
     scnene_plotter.showNormalImage()
     plt.axis('off')
 
-    legend_gt = ("Ground truth", (1.0, 0.0, 0.0))
-    legend_al = ("Arc length", (0.0, 1.0, 0.0))
+    legend_gt = ("Ground Truth", (1.0, 0.0, 0.0))
+    legend_al = ("Arc-Length", (0.0, 1.0, 0.0))
     legend_3d = ("Project 3D", (0.0, 0.0, 1.0))
 
     plotVectors(plt, result_data["ps"], result_data["normals_gt"], color=legend_gt[1], l=70, step=2)
@@ -98,14 +98,14 @@ def arcVSprojectFigure(scnene_plotter, data_name, segment_id, result_data):
     plt.subplot(132)
     scnene_plotter.showNormalImage()
     plt.axis('off')
-    plt.title('Arc length error\n %5.2f $^\circ$' %np.average(result_data["normals_al_error"]), fontsize=font_size)
+    plt.title('Arc-Length Error\n %5.2f $^\circ$' %np.average(result_data["normals_al_error"]), fontsize=font_size)
     error_colors = scalarToColor(result_data["normals_al_error"], vmin=error_min, vmax=error_max)
     plotSegment(plt, result_data["ps"], error_colors)
 
     plt.subplot(133)
     scnene_plotter.showNormalImage()
     plt.axis('off')
-    plt.title('Project 3D error\n %5.2f $^\circ$' %np.average(result_data["normals_3d_error"]), fontsize=font_size)
+    plt.title('Project 3D Error\n %5.2f $^\circ$' %np.average(result_data["normals_3d_error"]), fontsize=font_size)
     error_colors = scalarToColor(result_data["normals_3d_error"], vmin=error_min, vmax=error_max)
     plotSegment(plt, result_data["ps"], error_colors)
 

@@ -230,8 +230,8 @@ def resultDataFunc(scnene_plotter, data_name, segment_id, result_data):
     if len(result_data["ps"]) < 30:
         return
 
-    # curvatureVSconeAnglesNormal(scnene_plotter, data_name, segment_id, result_data)
-    # curvatureVSconeAnglesFigure(scnene_plotter, data_name, segment_id, result_data)
+    curvatureVSconeAnglesNormal(scnene_plotter, data_name, segment_id, result_data)
+    curvatureVSconeAnglesFigure(scnene_plotter, data_name, segment_id, result_data)
     curvatureVSconeAnglesSignal(scnene_plotter, data_name, segment_id, result_data)
 
 

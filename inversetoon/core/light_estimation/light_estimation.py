@@ -22,7 +22,7 @@ def estimateLightDir(input_data):
     I_sil = I_sil[I_positive]
 
     NdLs = I_sil
-    L = estimateLightDirLstSq(N_sil, NdLs)
+    L = estimateLightDirProjection(N_sil, NdLs)
 
     output_data = {"L": L}
 #     error = np.linalg.norm(np.dot(N_sil, L) - NdLs)

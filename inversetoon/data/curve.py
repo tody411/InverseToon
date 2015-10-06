@@ -78,6 +78,8 @@ class Curve(Data):
             if self._segments_cvIDs[0][0] != self._segments_cvIDs[-1][-1]:
                 self._segments_cvIDs[-1].append(self._segments_cvIDs[0][0])
         else:
+            if len(self._segments_cvIDs) == 0:
+                return
             if self._segments_cvIDs[0][0] == self._segments_cvIDs[-1][-1]:
                 self._segments_cvIDs[-1] = self._segments_cvIDs[-1][:-1]
 

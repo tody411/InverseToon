@@ -27,7 +27,7 @@ def silhouetteNormal(A_8U, sigma=7.0):
 
     N_32F[:, :, 0] = -gx
     N_32F[:, :, 1] = gy
-    N_32F[:, :, 2] = 0.0 # A_8U_blur
+    N_32F[:, :, 2] = A_8U_blur
 
     gxy_norm = np.zeros((height, width))
 

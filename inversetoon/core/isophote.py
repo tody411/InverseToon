@@ -21,6 +21,7 @@ def isophoteCurves(I_32F, iso_values=[0.2, 0.4, 0.6, 0.8], M_8U=None):
 
 def isophoteCurve(I_8U, iso_value, M_8U):
     contour = findContours(I_8U, 255 * iso_value)
+    print contour.segments()
 
     contour.clipByMask(M_8U)
     contour.resample(span=5)
